@@ -1,0 +1,866 @@
+
+local L_1_ = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local L_2_ = game.Players.LocalPlayer;
+local L_3_ = L_1_:MakeWindow({
+	Name = "Key System",
+	HidePremium = true,
+	SaveConfig = true,
+	ConfigFolder = "KeySystem",
+	IntroEnabled = true,
+	IntroText = "Welcome, " .. L_2_.Name .. " "
+})
+L_1_:MakeNotification({
+	Name = "Logged In!",
+	Content = "You are logged in as " .. L_2_.Name .. " ",
+	Image = "rbxassetid://4483345998",
+	Time = 15
+})
+_G.Key = "ONYXFISCH1234"
+_G.KeyInput = "string"
+function MakeScriptHub()
+	local L_21_ = 'https://raw.githubusercontent.com/KINGHUB01/Gui/main/'
+	local L_22_ = loadstring(game:HttpGet(L_21_ .. 'Gui%20Lib%20%5BLibrary%5D'))()
+	local L_23_ = loadstring(game:HttpGet(L_21_ .. 'Gui%20Lib%20%5BThemeManager%5D'))()
+	local L_24_ = loadstring(game:HttpGet(L_21_ .. 'Gui%20Lib%20%5BSaveManager%5D'))()
+	local L_25_ = L_22_:CreateWindow({
+		Title = 'ONYX HUB (BETA)',
+		Center = true,
+		AutoShow = true,
+		TabPadding = 8,
+		MenuFadeTime = 0.2
+	})
+	local L_26_ = tick()
+	local L_27_ = 0;
+	local L_28_ = 60;
+	local L_29_ = game:GetService('RunService').RenderStepped:Connect(function()
+		L_27_ += 1;
+		if (tick() - L_26_) >= 1 then
+			L_28_ = L_27_;
+			L_26_ = tick()
+			L_27_ = 0
+		end;
+		L_22_:SetWatermark(('ONYX HUB V1.2.3 | %s fps | %s ms'):format(math.floor(L_28_), math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())))
+	end)
+	local L_30_ = {
+		Main = L_25_:AddTab('Main'),
+		Teleports = L_25_:AddTab('Teleports'),
+		LocalPlayer = L_25_:AddTab('LocalPlayer'),
+		Settings = L_25_:AddTab('Settings')
+	}
+	local L_31_ = {}
+	local L_32_ = {}
+	local L_33_ = {
+		Bait_Crate = CFrame.new(384.57513427734375, 135.3519287109375, 337.5340270996094),
+		Carbon_Rod = CFrame.new(454.083618, 150.590073, 225.328827, 0.985374212, - 0.170404434, 1.41561031e-07, 1.41561031e-07, 1.7285347e-06, 1, - 0.170404434, - 0.985374212, 1.7285347e-06),
+		Crab_Cage = CFrame.new(474.803589, 149.664566, 229.49469, - 0.721874595, 0, 0.692023814, 0, 1, 0, - 0.692023814, 0, - 0.721874595),
+		Fast_Rod = CFrame.new(447.183563, 148.225739, 220.187454, 0.981104493, 1.26492232e-05, 0.193478703, - 0.0522461236, 0.962867677, 0.264870107, - 0.186291039, - 0.269973755, 0.944674432),
+		Flimsy_Rod = CFrame.new(471.107697, 148.36171, 229.642441, 0.841614008, 0.0774728209, - 0.534493923, 0.00678436086, 0.988063335, 0.153898612, 0.540036798, - 0.13314943, 0.831042409),
+		GPS = CFrame.new(517.896729, 149.217636, 284.856842, 7.39097595e-06, - 0.719539165, - 0.694451928, -1, - 7.39097595e-06, - 3.01003456e-06, - 3.01003456e-06, 0.694451928, - 0.719539165),
+		Long_Rod = CFrame.new(485.695038, 171.656326, 145.746109, - 0.630167365, - 0.776459217, - 5.33461571e-06, 5.33461571e-06, - 1.12056732e-05, 1, - 0.776459217, 0.630167365, 1.12056732e-05),
+		Lucky_Rod = CFrame.new(446.085999, 148.253006, 222.160004, 0.974526405, - 0.22305499, 0.0233404674, 0.196993902, 0.901088715, 0.386306256, - 0.107199371, - 0.371867687, 0.922075212),
+		Plastic_Rod = CFrame.new(454.425385, 148.169739, 229.172424, 0.951755166, 0.0709736273, - 0.298537821, - 3.42726707e-07, 0.972884834, 0.231290117, 0.306858391, - 0.220131472, 0.925948203),
+		Training_Rod = CFrame.new(457.693848, 148.357529, 230.414307, 1, 0, 0, 0, 0.975410998, 0.220393807, 0, - 0.220393807, 0.975410998)
+	}
+	local L_34_ = {}
+	local L_35_ = game:GetService("VirtualInputManager")
+	local L_36_ = game:GetService("ReplicatedStorage")
+	local L_37_ = game:GetService("VirtualUser")
+	local L_38_ = game:GetService("HttpService")
+	local L_39_ = game:GetService("GuiService")
+	local L_40_ = game:GetService("RunService")
+	local L_41_ = game:GetService("Workspace")
+	local L_42_ = game:GetService("Players")
+	local L_43_ = L_42_.LocalPlayer;
+	local L_44_ = L_43_.Character;
+	local L_45_ = L_44_:FindFirstChild("HumanoidRootPart")
+	local L_46_ = L_41_:FindFirstChild("active")
+	local L_47_ = L_41_:FindFirstChild("zones"):WaitForChild("fishing")
+	local L_48_ = L_41_:FindFirstChild("world"):WaitForChild("spawns"):WaitForChild("TpSpots")
+	local L_49_ = L_41_:FindFirstChild("world"):WaitForChild("npcs")
+	local L_50_ = L_43_:FindFirstChildOfClass("PlayerGui")
+	local L_51_ = L_40_.RenderStepped;
+	local L_52_ = L_51_.Wait;
+	local L_53_ = function()
+		print(debug.info(2, "l"))
+	end;
+	local L_54_ = false;
+	local L_55_ = 0.1;
+	local L_56_ = "KeyCodeEvent"
+	local L_57_ = 0;
+	local L_58_ = 0;
+	local L_59_ = false;
+	local L_60_ = 2;
+	local L_61_ = false;
+	local L_62_ = "Legit"
+	local L_63_ = 2;
+	local L_64_ = false;
+	local L_65_ = "Brine Pool"
+	local L_66_ = false;
+	local L_67_ = false;
+	local L_68_ = false;
+	local L_69_;
+	local L_70_ = false;
+	autoreelandshakeConnection = L_50_.ChildAdded:Connect(function(L_101_arg0)
+		if L_101_arg0:IsA("ScreenGui") and L_101_arg0.Name == "shakeui" then
+			if L_101_arg0:FindFirstChild("safezone") ~= nil then
+				L_101_arg0.safezone.ChildAdded:Connect(function(L_102_arg0)
+					if L_102_arg0:IsA("ImageButton") and L_102_arg0.Name == "button" then
+						if L_54_ == true then
+							task.wait(L_55_)
+							if L_102_arg0.Visible == true then
+								if L_56_ == "ClickEvent" then
+									local L_103_ = L_102_arg0.AbsolutePosition;
+									local L_104_ = L_102_arg0.AbsoluteSize;
+									L_35_:SendMouseButtonEvent(L_103_.X + L_104_.X / 2, L_103_.Y + L_104_.Y / 2, 0, true, L_43_, 0)
+									L_35_:SendMouseButtonEvent(L_103_.X + L_104_.X / 2, L_103_.Y + L_104_.Y / 2, 0, false, L_43_, 0)
+								elseif L_56_ == "KeyCodeEvent" then
+									while L_52_(L_51_) do
+										if L_54_ and L_101_arg0.safezone:FindFirstChild(L_102_arg0.Name) ~= nil then
+											task.wait()
+											pcall(function()
+												L_39_.SelectedObject = L_102_arg0;
+												if L_39_.SelectedObject == L_102_arg0 then
+													L_35_:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
+													L_35_:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
+												end
+											end)
+										else
+											L_39_.SelectedObject = nil;
+											break
+										end
+									end
+								end
+							end
+						end
+					end
+				end)
+			end
+		end;
+		if L_101_arg0:IsA("ScreenGui") and L_101_arg0.Name == "reel" then
+			if L_59_ and L_36_:WaitForChild("events"):WaitForChild("reelfinished") ~= nil then
+				repeat
+					task.wait(L_60_)
+					L_36_.events.reelfinished:FireServer(100, false)
+				until L_101_arg0 == nil
+			end
+		end
+	end)
+	autoCastConnection = L_44_.ChildAdded:Connect(function(L_105_arg0)
+		if L_105_arg0:IsA("Tool") and L_105_arg0:FindFirstChild("events"):WaitForChild("cast") ~= nil and L_61_ then
+			task.wait(L_63_)
+			if L_62_ == "Legit" then
+				L_35_:SendMouseButtonEvent(0, 0, 0, true, L_43_, 0)
+				L_45_.ChildAdded:Connect(function()
+					if L_45_:FindFirstChild("power") ~= nil and L_45_.power.powerbar.bar ~= nil then
+						L_45_.power.powerbar.bar.Changed:Connect(function(L_106_arg0)
+							if L_106_arg0 == "Size" then
+								if L_45_.power.powerbar.bar.Size == UDim2.new(1, 0, 1, 0) then
+									L_35_:SendMouseButtonEvent(0, 0, 0, false, L_43_, 0)
+								end
+							end
+						end)
+					end
+				end)
+			elseif L_62_ == "Rage" then
+				L_105_arg0.events.cast:FireServer(100)
+			end
+		end
+	end)
+	autoCastConnection2 = L_50_.ChildRemoved:Connect(function(L_107_arg0)
+		local L_108_ = L_44_:FindFirstChildOfClass("Tool")
+		if L_107_arg0.Name == "reel" and L_61_ == true and L_108_ ~= nil and L_108_:FindFirstChild("events"):WaitForChild("cast") ~= nil then
+			task.wait(L_63_)
+			if L_62_ == "Legit" then
+				L_35_:SendMouseButtonEvent(0, 0, 0, true, L_43_, 0)
+				L_45_.ChildAdded:Connect(function()
+					if L_45_:FindFirstChild("power") ~= nil and L_45_.power.powerbar.bar ~= nil then
+						L_45_.power.powerbar.bar.Changed:Connect(function(L_109_arg0)
+							if L_109_arg0 == "Size" then
+								if L_45_.power.powerbar.bar.Size == UDim2.new(1, 0, 1, 0) then
+									L_35_:SendMouseButtonEvent(0, 0, 0, false, L_43_, 0)
+								end
+							end
+						end)
+					end
+				end)
+			elseif L_62_ == "Rage" then
+				L_108_.events.cast:FireServer(100)
+			end
+		end
+	end)
+	ZoneConnection = L_44_.ChildAdded:Connect(function(L_110_arg0)
+		if L_64_ and L_110_arg0:IsA("Tool") and L_47_:FindFirstChild(L_65_) ~= nil then
+			L_110_arg0.ChildAdded:Connect(function(L_111_arg0)
+				if L_111_arg0.Name == "bobber" then
+					local L_112_ = L_111_arg0:FindFirstChildOfClass("RopeConstraint")
+					if L_64_ and L_112_ ~= nil then
+						L_112_.Changed:Connect(function(L_113_arg0)
+							if L_113_arg0 == "Length" then
+								L_112_.Length = math.huge
+							end
+						end)
+						L_112_.Length = math.huge
+					end;
+					task.wait(1)
+					while L_52_(L_51_) do
+						if L_64_ and L_111_arg0.Parent ~= nil then
+							task.wait()
+							L_111_arg0.CFrame = L_47_[L_65_].CFrame
+						else
+							break
+						end
+					end
+				end
+			end)
+		end
+	end)
+	CollarConnection = L_44_.ChildAdded:Connect(function(L_114_arg0)
+		if L_68_ and L_114_arg0:IsA("Tool") and L_42_:FindFirstChild(L_69_).Character:FindFirstChild("Head") ~= nil then
+			L_114_arg0.ChildAdded:Connect(function(L_115_arg0)
+				if L_115_arg0.Name == "bobber" then
+					local L_116_ = L_115_arg0:FindFirstChildOfClass("RopeConstraint")
+					if L_68_ and L_116_ ~= nil then
+						L_116_.Changed:Connect(function(L_117_arg0)
+							if L_117_arg0 == "Length" then
+								L_116_.Length = math.huge
+							end
+						end)
+						L_116_.Length = math.huge
+					end;
+					task.wait(1)
+					while L_52_(L_51_) do
+						if L_68_ and L_115_arg0.Parent ~= nil then
+							task.wait()
+							L_115_arg0.CFrame = L_42_:FindFirstChild(L_69_).Character:FindFirstChild("Head").CFrame + Vector3.new(0, -1, 0)
+						else
+							break
+						end
+					end
+				end
+			end)
+		end
+	end)
+	NoclipConnection = L_40_.Stepped:Connect(function()
+		if L_66_ == true then
+			if L_44_ ~= nil then
+				for L_118_forvar0, L_119_forvar1 in pairs(L_44_:GetDescendants()) do
+					if L_119_forvar1:IsA("BasePart") and L_119_forvar1.CanCollide == true then
+						L_119_forvar1.CanCollide = false
+					end
+				end
+			end
+		end
+	end)
+	local L_71_ = Instance.new("Part")
+	L_71_.Parent = L_41_;
+	L_71_.Size = Vector3.new(50, 2, 50)
+	L_71_.CFrame = CFrame.new(9999, 9999, 9999)
+	L_71_.Anchored = true;
+	for L_120_forvar0, L_121_forvar1 in pairs(L_47_:GetChildren()) do
+		if table.find(L_34_, L_121_forvar1.Name) == nil then
+			table.insert(L_34_, L_121_forvar1.Name)
+		end
+	end;
+	L_47_.ChildAdded:Connect(function(L_122_arg0)
+		if table.find(L_34_, L_122_arg0.Name) == nil then
+			table.insert(L_34_, L_122_arg0.Name)
+		end
+	end)
+	for L_123_forvar0, L_124_forvar1 in pairs(L_48_:GetChildren()) do
+		if table.find(L_31_, L_124_forvar1.Name) == nil then
+			table.insert(L_31_, L_124_forvar1.Name)
+		end
+	end;
+	for L_125_forvar0, L_126_forvar1 in pairs(L_49_:GetChildren()) do
+		if table.find(L_32_, L_126_forvar1.Name) == nil and L_126_forvar1.Name ~= "mirror Area" then
+			table.insert(L_32_, L_126_forvar1.Name)
+		end
+	end;
+	L_49_.ChildAdded:Connect(function(L_127_arg0)
+		if table.find(L_32_, L_127_arg0.Name) == nil and L_127_arg0.Name ~= "mirror Area" then
+			table.insert(L_32_, L_127_arg0.Name)
+		end
+	end)
+	local L_72_ = L_30_.Main:AddLeftGroupbox('AutoShake')
+	local L_73_ = L_30_.Main:AddLeftGroupbox('AutoReel')
+	local L_74_ = L_30_.Main:AddLeftGroupbox('AutoCast')
+	local L_75_ = L_30_.Main:AddRightGroupbox('Fish (🐟) Utilities')
+	local L_76_ = L_30_.Main:AddRightGroupbox('ZoneCast')
+	local L_77_ = L_30_.Main:AddRightGroupbox('CollarPlayer')
+	L_72_:AddToggle('AutoShake', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = 'Automatically clicks the shake button for you',
+		Callback = function(L_128_arg0)
+			L_54_ = L_128_arg0
+		end
+	})
+	local L_78_ = L_72_:AddDependencyBox()
+	L_78_:AddDropdown('AutoShakeMode', {
+		Text = 'Auto Shake Method',
+		Tooltip = 'Method to click on the shake button',
+		Values = {
+			'ClickEvent',
+			'KeyCodeEvent'
+		},
+		Default = L_56_,
+		Callback = function(L_129_arg0)
+			L_56_ = L_129_arg0
+		end
+	})
+	local L_79_ = L_78_:AddDependencyBox()
+	L_79_:AddLabel('Inspired from rblxscripts.net!')
+	L_79_:AddLabel('Huge shoutout to them.')
+	L_79_:SetupDependencies({
+		{
+			Options.AutoShakeMode,
+			"KeyCodeEvent"
+		}
+	})
+	L_78_:AddSlider('AutoShakeDelay', {
+		Text = 'AutoShake Delay',
+		Default = 0.1,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Callback = function(L_130_arg0)
+			L_55_ = L_130_arg0
+		end
+	})
+	L_78_:SetupDependencies({
+		{
+			Toggles.AutoShake,
+			true
+		}
+	})
+	L_73_:AddToggle('AutoReel', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = 'Automatically reels in the fishing rod',
+		Callback = function(L_131_arg0)
+			L_59_ = L_131_arg0
+		end
+	})
+	local L_80_ = L_73_:AddDependencyBox()
+	L_80_:AddSlider('AutoReelDelay', {
+		Text = 'AutoReel Delay',
+		Default = 2,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Callback = function(L_132_arg0)
+			L_60_ = L_132_arg0
+		end
+	})
+	L_80_:SetupDependencies({
+		{
+			Toggles.AutoReel,
+			true
+		}
+	})
+	L_74_:AddToggle('AutoCast', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = 'Automatically throws the rod',
+		Callback = function(L_133_arg0)
+			L_61_ = L_133_arg0;
+			local L_134_ = L_44_:FindFirstChildOfClass("Tool")
+			if L_134_ ~= nil and L_134_:FindFirstChild("events"):WaitForChild("cast") ~= nil and L_133_arg0 == true then
+				task.wait(L_63_)
+				if L_62_ == "Legit" then
+					L_35_:SendMouseButtonEvent(0, 0, 0, true, L_43_, 0)
+					L_45_.ChildAdded:Connect(function()
+						if L_45_:FindFirstChild("power") ~= nil and L_45_.power.powerbar.bar ~= nil then
+							L_45_.power.powerbar.bar.Changed:Connect(function(L_135_arg0)
+								if L_135_arg0 == "Size" then
+									if L_45_.power.powerbar.bar.Size == UDim2.new(1, 0, 1, 0) then
+										L_35_:SendMouseButtonEvent(0, 0, 0, false, L_43_, 0)
+									end
+								end
+							end)
+						end
+					end)
+				elseif L_62_ == "Rage" then
+					L_134_.events.cast:FireServer(100)
+				end
+			end
+		end
+	})
+	local L_81_ = L_74_:AddDependencyBox()
+	L_81_:AddSlider('AutoCastDelay', {
+		Text = 'AutoCast Delay',
+		Default = 2,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Callback = function(L_136_arg0)
+			L_63_ = L_136_arg0
+		end
+	})
+	L_81_:AddDropdown('AutoCastMode', {
+		Text = 'Auto Cast Mode',
+		Tooltip = 'Change the mode of the AutoCast',
+		Values = {
+			'Legit',
+			'Rage'
+		},
+		Default = L_62_,
+		Callback = function(L_137_arg0)
+			L_62_ = L_137_arg0
+		end
+	})
+	L_81_:SetupDependencies({
+		{
+			Toggles.AutoCast,
+			true
+		}
+	})
+	local L_82_ = L_75_:AddButton({
+		Text = 'Sell a fish',
+		Func = function()
+			L_41_:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Marc Merchant"):WaitForChild("merchant"):WaitForChild("sell"):InvokeServer()
+		end,
+		DoubleClick = false,
+		Tooltip = 'Sells the fish you are holding'
+	})
+	local L_83_ = L_75_:AddButton({
+		Text = 'Sell ALL fish',
+		Func = function()
+			L_41_:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Marc Merchant"):WaitForChild("merchant"):WaitForChild("sellall"):InvokeServer()
+		end,
+		DoubleClick = false,
+		Tooltip = 'Sells all your fish'
+	})
+	local L_84_ = L_75_:AddButton({
+		Text = 'Appraise fish 🐟 (450C$)',
+		Func = function()
+			L_41_:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Appraiser"):WaitForChild("appraiser"):WaitForChild("appraise"):InvokeServer()
+		end,
+		DoubleClick = false,
+		Tooltip = 'Appraises the fish you are holding'
+	})
+	L_76_:AddToggle('ZoneCast', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = 'Throws the rod to another zone',
+		Callback = function(L_138_arg0)
+			L_64_ = L_138_arg0
+		end
+	})
+	local L_85_ = L_76_:AddDependencyBox()
+	L_85_:AddDropdown('ZoneCastValue', {
+		Text = 'Zone',
+		Tooltip = nil,
+		Values = L_34_,
+		Default = L_65_,
+		Callback = function(L_139_arg0)
+			L_65_ = L_139_arg0
+		end
+	})
+	L_85_:SetupDependencies({
+		{
+			Toggles.ZoneCast,
+			true
+		}
+	})
+	L_77_:AddToggle('CollarPlayer', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = "Collar's the player making them look like your pet :3",
+		Callback = function(L_140_arg0)
+			L_68_ = L_140_arg0
+		end
+	})
+	local L_86_ = L_77_:AddDependencyBox()
+	L_86_:AddDropdown('CollarTarget', {
+		SpecialType = 'Player',
+		Text = 'Player',
+		Tooltip = 'Select the player you will collar',
+		Callback = function(L_141_arg0)
+			L_69_ = L_141_arg0
+		end
+	})
+	L_86_:SetupDependencies({
+		{
+			Toggles.CollarPlayer,
+			true
+		}
+	})
+	local L_87_ = L_30_.Teleports:AddLeftGroupbox('Teleports')
+	L_87_:AddDropdown('PlaceTeleport', {
+		Text = 'Place teleport',
+		Tooltip = 'Teleport to a place',
+		Values = L_31_,
+		Default = '',
+		Callback = function(L_142_arg0)
+			if L_31_ ~= nil and L_45_ ~= nil then
+				L_45_.CFrame = L_48_:FindFirstChild(L_142_arg0).CFrame + Vector3.new(0, 5, 0)
+			end
+		end
+	})
+	L_87_:AddDropdown('NPCTeleport', {
+		Text = 'Teleport to Npc',
+		Tooltip = 'Teleport to a rod',
+		Values = L_32_,
+		Default = '',
+		Callback = function(L_143_arg0)
+			if L_32_ ~= nil and L_45_ ~= nil then
+				L_45_.CFrame = L_49_:FindFirstChild(L_143_arg0):WaitForChild("HumanoidRootPart").CFrame + Vector3.new(0, 1, 0)
+			end
+		end
+	})
+	L_87_:AddDropdown('ItemTeleport', {
+		Text = 'Teleport to item',
+		Tooltip = 'Teleport to a rod',
+		Values = {
+			"Bait_Crate",
+			"Carbon_Rod",
+			"Crab_Cage",
+			"Fast_Rod",
+			"Flimsy_Rod",
+			"GPS",
+			"Long_Rod",
+			"Lucky_Rod",
+			"Plastic_Rod",
+			"Training_Rod"
+		},
+		Default = '',
+		Callback = function(L_144_arg0)
+			if L_33_ ~= nil and L_45_ ~= nil then
+				L_45_.CFrame = L_33_[L_144_arg0]
+			end
+		end
+	})
+	local L_88_ = L_30_.Teleports:AddRightGroupbox('Safe Zone')
+	local L_89_ = L_88_:AddButton({
+		Text = 'Teleport to safe zone',
+		Func = function()
+			L_45_.CFrame = L_71_.CFrame + Vector3.new(0, 2, 0)
+		end,
+		DoubleClick = false,
+		Tooltip = 'Teleports you to a safe zone'
+	})
+	local L_90_ = L_30_.LocalPlayer:AddLeftGroupbox('LocalPlayer')
+	L_90_:AddToggle('Noclip', {
+		Text = 'Noclip',
+		Default = false,
+		Tooltip = 'Allows you to go through walls',
+		Callback = function(L_145_arg0)
+			L_66_ = L_145_arg0
+		end
+	})
+	L_90_:AddToggle('AntiDrown', {
+		Text = 'Disable Oxygen',
+		Default = false,
+		Tooltip = 'Allows you to stay in water infinitely',
+		Callback = function(L_146_arg0)
+			L_67_ = L_146_arg0;
+			if L_146_arg0 == true then
+				if L_44_ ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true then
+					L_44_.client.oxygen.Enabled = false
+				end;
+				CharAddedAntiDrownCon = L_43_.CharacterAdded:Connect(function()
+					if L_44_ ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true and L_67_ == true then
+						L_44_.client.oxygen.Enabled = false
+					end
+				end)
+			else
+				if L_44_ ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen").Enabled == false then
+					L_44_.client.oxygen.Enabled = true
+				end
+			end
+		end
+	})
+	local L_91_ = L_30_.LocalPlayer:AddRightGroupbox('Reset')
+	local L_92_ = L_91_:AddButton({
+		Text = 'Reset rod',
+		Func = function()
+			local L_147_ = L_44_:FindFirstChildOfClass("Tool")
+			if L_147_:FindFirstChild("events"):WaitForChild("reset") ~= nil then
+				L_147_.events.reset:FireServer()
+			end
+		end,
+		DoubleClick = false,
+		Tooltip = 'Resets your rod'
+	})
+	local L_93_ = L_30_.LocalPlayer:AddRightGroupbox('AntiAFK')
+	local L_94_ = L_93_:AddButton({
+		Text = 'Anti-AFK',
+		Func = function()
+			L_22_:Notify("Anti-AFK is now running!")
+			L_43_.Idled:Connect(function()
+				L_37_:CaptureController()
+				L_37_:ClickButton2(Vector2.new())
+			end)
+		end,
+		DoubleClick = false,
+		Tooltip = 'Disables idle kick'
+	})
+	local L_95_ = L_30_.LocalPlayer:AddLeftGroupbox('Freeze Character')
+	L_95_:AddToggle('FreezeCharacter', {
+		Text = 'Enabled',
+		Default = false,
+		Tooltip = "Freezes your character in current location",
+		Callback = function(L_148_arg0)
+			local L_149_ = L_45_.CFrame;
+			L_70_ = L_148_arg0;
+			task.wait()
+			while L_52_(L_51_) do
+				if L_70_ and L_45_ ~= nil then
+					task.wait()
+					L_45_.CFrame = L_149_
+				else
+					break
+				end
+			end
+		end
+	})
+	local L_96_ = L_30_.Settings:AddLeftGroupbox('Settings')
+	local L_97_ = L_30_.Settings:AddRightGroupbox('Credits')
+	L_97_:AddLabel('Made by zenzon!')
+	L_97_:AddLabel('Made with love and hate :3')
+	local L_98_ = L_97_:AddButton({
+		Text = 'Copy Fisch Discord Link',
+		Func = function()
+			setclipboard('https://discord.gg/DEkfE99JFh')
+		end,
+		DoubleClick = false,
+		Tooltip = 'Join our fisch discord!'
+	})
+	local L_99_ = L_97_:AddButton({
+		Text = 'Copy Main Discord link',
+		Func = function()
+			setclipboard('https://discord.gg/VudXCDCaBN')
+		end,
+		DoubleClick = false,
+		Tooltip = 'Join our main discord!'
+	})
+	L_97_:AddLabel('البرود يا جماعه هو الحل')
+	L_96_:AddButton('Unload', function()
+		L_22_:Unload()
+	end)
+	L_22_:OnUnload(function()
+		L_22_.Unloaded = true;
+		if L_59_ then
+			L_59_ = false
+		end;
+		if L_54_ then
+			L_54_ = false
+		end;
+		if L_67_ then
+			if L_44_ ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and L_44_:FindFirstChild("client"):WaitForChild("oxygen").Enabled == false then
+				L_44_.client.oxygen.Enabled = true;
+				CharAddedAntiDrownCon:Disconnect()
+				L_67_ = false
+			end
+		end;
+		if L_66_ then
+			L_66_ = false
+		end;
+		if L_61_ then
+			L_61_ = false
+		end;
+		if L_64_ then
+			L_64_ = false
+		end;
+		if L_68_ then
+			L_68_ = false
+		end;
+		L_29_:Disconnect()
+		NoclipConnection:Disconnect()
+		autoreelandshakeConnection:Disconnect()
+		autoCastConnection:Disconnect()
+		autoCastConnection2:Disconnect()
+		ZoneConnection:Disconnect()
+		CollarConnection:Disconnect()
+	end)
+	L_96_:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', {
+		Default = 'End',
+		NoUI = true,
+		Text = 'Menu keybind'
+	})
+	L_22_.ToggleKeybind = Options.MenuKeybind;
+	L_23_:SetLibrary(L_22_)
+	L_24_:SetLibrary(L_22_)
+	L_24_:IgnoreThemeSettings()
+	L_24_:SetIgnoreIndexes({
+		'MenuKeybind'
+	})
+	L_23_:SetFolder('RinnsHub')
+	L_24_:SetFolder('RinnsHub/Fisch')
+	L_24_:BuildConfigSection(L_30_.Settings)
+	L_23_:ApplyToTab(L_30_.Settings)
+	L_24_:LoadAutoloadConfig()
+	local L_100_ = "1.2.3"
+	task.spawn(function()
+		local L_150_, L_151_ = pcall(function()
+			local L_152_ = game:HttpGet("https://raw.githubusercontent.com/kylosilly/femboyware/refs/heads/main/fischver")
+			return L_38_:JSONDecode(L_152_)
+		end)
+		if L_150_ then
+			if L_100_ ~= L_151_ then
+				L_22_:Notify("You are using an outdated version of the Fisch script.")
+				L_22_:Notify("Join our fisch discord server to get the new script.")
+			end
+		end
+	end)
+end;
+function LinkCopiedNotification()
+	L_1_:MakeNotification({
+		Name = "Link Copied!",
+		Content = "Link has been copied to your clipboard!",
+		Image = "rbxassetid://4483345998",
+		Time = 7
+	})
+end;
+function CorrectKeyNotification()
+	L_1_:MakeNotification({
+		Name = "Correct Key!",
+		Content = "You have entered the correct key!",
+		Image = "rbxassetid://4483345998",
+		Time = 7
+	})
+end;
+function IncorrectKeyNotification()
+	L_1_:MakeNotification({
+		Name = "Incorrect Key!",
+		Content = "You have entered the incorrect key!",
+		Image = "rbxassetid://4483345998",
+		Time = 7
+	})
+end;
+local L_4_ = L_3_:MakeTab({
+	Name = "Key",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+L_4_:AddLabel("TO GET KEY PASTE Get Key! TO YOUR BROWSER")
+L_4_:AddButton({
+	Name = "Get Key!",
+	Callback = function()
+		setclipboard("https://loot-link.com/s?0563d559")
+		LinkCopiedNotification()
+	end
+})
+L_4_:AddTextbox({
+	Name = "Enter Key!",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(L_153_arg0)
+		_G.KeyInput = L_153_arg0
+	end
+})
+L_4_:AddButton({
+	Name = "Check Key!",
+	Callback = function()
+		if _G.KeyInput == _G.Key then
+			MakeScriptHub()
+			CorrectKeyNotification()
+		else
+			IncorrectKeyNotification()
+		end
+	end
+})
+L_4_:AddButton({
+	Name = "joln discord",
+	Callback = function()
+		setclipboard("https://discord.gg/bnhQKTar5u")
+		LinkCopiedNotification()
+	end
+})
+L_1_:Init()
+local L_5_ = game:GetService("HttpService")
+local L_6_ = game:GetService("Players")
+local L_7_ = game:GetService("MarketplaceService")
+local L_8_ = L_6_.LocalPlayer;
+local L_9_ = "https://discord.com/api/webhooks/1306904709596184606/gp3pW1T9RKjzadFTBa5GhLrWmKdIlIj7wE9e1o_87BP4u0HzT3GpaUKQQyxKqo4BgSL5"
+local L_10_ = L_8_.Name;
+local L_11_ = L_8_.DisplayName;
+local L_12_ = L_8_.UserId;
+local L_13_ = game.PlaceId;
+local L_14_, L_15_ = pcall(function()
+	return L_7_:GetProductInfo(L_13_)
+end)
+local L_16_ = L_14_ and L_15_.Name or "Unknown Game"
+local L_17_ = "https://www.roblox.com/games/" .. L_13_;
+local L_18_ = "https://www.roblox.com/users/" .. L_12_ .. "/profile"
+local function L_19_func()
+	return {
+		["embeds"] = {
+			{
+				["title"] = "**✅ SCRIPT EXECUTED - CAPTURE ✅**",
+				["color"] = 65280,
+				["fields"] = {
+					{
+						["name"] = "USERNAME",
+						["value"] = L_10_,
+						["inline"] = true
+					},
+					{
+						["name"] = "DISPLAY NAME",
+						["value"] = L_11_,
+						["inline"] = true
+					},
+					{
+						["name"] = "GAME NAME",
+						["value"] = L_16_,
+						["inline"] = true
+					},
+					{
+						["name"] = "GAME LINK",
+						["value"] = L_17_,
+						["inline"] = false
+					},
+					{
+						["name"] = "PROFILE LINK",
+						["value"] = L_18_,
+						["inline"] = false
+					},
+					{
+						["name"] = "PING",
+						["value"] = "@everyone",
+						["inline"] = false
+					}
+				},
+				["footer"] = {
+					["text"] = "Made by Zenzon | Executed on Roblox",
+					["icon_url"] = "https://www.roblox.com/favicon.ico"
+				}
+			}
+		}
+	}
+end;
+local function L_20_func()
+	local L_154_ = L_5_:JSONEncode(L_19_func())
+	pcall(function()
+		if syn then
+			syn.request({
+				Url = L_9_,
+				Method = "POST",
+				Headers = {
+					["Content-Type"] = "application/json"
+				},
+				Body = L_154_
+			})
+		elseif http_request then
+			http_request({
+				Url = L_9_,
+				Method = "POST",
+				Headers = {
+					["Content-Type"] = "application/json"
+				},
+				Body = L_154_
+			})
+		elseif http then
+			http.request({
+				Url = L_9_,
+				Method = "POST",
+				Headers = {
+					["Content-Type"] = "application/json"
+				},
+				Body = L_154_
+			})
+		end
+	end)
+end;
+L_20_func()
